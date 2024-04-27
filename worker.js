@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const envSetup = require("./env.json");
 
 const EstablishmentSchema = new mongoose.Schema({
     siren: { type: String, required: false },
@@ -42,7 +43,7 @@ function formatEstablishment(data){
 
 async function save(data) {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/test');
+        await mongoose.connect(`${envSetup.MONGO_URI}/${envSetup.MONGO_DATABASE}`);
 
         for (const establishment of data) {
             const dataFormat = formatEstablishment(establishment);
